@@ -1,4 +1,4 @@
-/// https://leetcode.com/problems/degree-of-an-array/
+// https://leetcode.com/problems/degree-of-an-array/
 use std::collections::HashMap;
 
 struct Solution;
