@@ -26,3 +26,8 @@ fn example1() {
             .collect()
     );
 }
+
+#[test]
+fn exapmle2() {
+    unimplemented!();
+}
