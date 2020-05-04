@@ -1,5 +1,5 @@
+use crate::tools::assert::*;
 use crate::Solution;
-use std::collections::HashSet;
 
 #[test]
 fn example1() {
@@ -18,12 +18,11 @@ fn example1() {
     .collect();
     let output = vec!["catsdogcats", "dogcatsdog", "ratcatdogcat"];
 
-    assert_eq!(
-        output.iter().cloned().collect::<HashSet<&str>>(),
+    assert_equivalent(
+        output.iter().cloned(),
         Solution::find_all_concatenated_words_in_a_dict(input)
             .iter()
-            .map(|s| s.as_str())
-            .collect()
+            .map(|s| s.as_str()),
     );
 }
 
