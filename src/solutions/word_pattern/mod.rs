@@ -4,6 +4,7 @@ use crate::Solution;
 use std::collections::HashMap;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn word_pattern(pattern: String, string: String) -> bool {
         let words: Vec<&str> = string.split(' ').collect();
         if pattern.len() != words.len() {

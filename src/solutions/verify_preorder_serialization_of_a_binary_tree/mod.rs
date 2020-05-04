@@ -2,6 +2,7 @@
 use crate::Solution;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn is_valid_serialization(pre_order: String) -> bool {
         let nodes: Vec<&str> = pre_order.split(',').collect();
 

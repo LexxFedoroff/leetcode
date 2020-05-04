@@ -3,6 +3,7 @@ use crate::Solution;
 use std::collections::HashMap;
 
 impl Solution {
+    #[allow(dead_code)]
     pub fn find_shortest_sub_array(nums: Vec<i32>) -> i32 {
         let mut map: HashMap<i32, SubArray> = HashMap::new();
 
