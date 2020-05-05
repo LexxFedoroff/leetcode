@@ -35,8 +35,8 @@ fn example2() {
 
 #[test]
 fn example3() {
-    let input = ["a", "b", "ba"];
-    let expected = ["ba"];
+    let input = ["ab", "b", "bab"];
+    let expected = ["bab"];
 
     let output = Solution::find_all_concatenated_words_in_a_dict(to_input(&input));
 
