@@ -21,6 +21,9 @@ impl Solution {
         for i in 1..word.len() {
             let (prefix, suffix) = word.split_at(i);
             let prefix_ok = hs.contains(&prefix.to_owned());
+            if !prefix_ok {
+                continue;
+            }
             let suffix_ok = hs.contains(&suffix.to_owned());
             if prefix_ok && suffix_ok {
                 return true;
