@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::concatenated_words::tests::example4"
+                "solutions::minimum_distance_to_type_a_word_using_two_fingers::tests::example1"
             ]
         }
     ]
