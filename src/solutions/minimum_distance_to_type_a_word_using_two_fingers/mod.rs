@@ -27,64 +27,38 @@ fn distance(c1: &(i32, i32), c2: &(i32, i32)) -> i32 {
     (c1.0 as i32 - c2.0 as i32).abs() + (c1.1 as i32 - c2.1 as i32).abs()
 }
 
-struct State {
-    left_finger: Option<(i32, i32)>,
-    right_finger: Option<(i32, i32)>,
-}
-
-impl State {
-    fn new() -> State {
-        State {
-            left_finger: None,
-            right_finger: None,
+fn distance_over<'a>(iter: impl Iterator<Item = char>) -> i32 {
+    let mut dist = 0;
+    let mut prev: Option<char> = None;
+    for curr in iter {
+        prev = match prev {
+            None => Some(curr),
+            Some(prev) => {
+                dist += distance(&MAP[&prev], &MAP[&curr]);
+                Some(curr)
+            }
         }
     }
-}
 
-fn calc_distance(ch: &char, state: &mut State) -> i32 {
-    let ch = MAP[ch];
-
-    let ld = if let Some(ref point) = state.left_finger {
-        distance(&ch, point)
-    } else {
-        if ch.1 <= 2 {
-            0
-        } else {
-            i32::MAX
-        }
-    };
-
-    let rd = if let Some(ref point) = state.right_finger {
-        distance(&ch, point)
-    } else {
-        if ch.1 >= 3 {
-            0
-        } else {
-            i32::MAX
-        }
-    };
-
-    if ld <= rd {
-        state.left_finger = Some(ch);
-        ld
-    } else {
-        state.right_finger = Some(ch);
-        rd
-    }
+    dist
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        let mut dist = 0;
+        let left = word.chars().filter(|&s| {
+            let point = MAP[&s];
+            point.1 <= 2
+        });
+        let right = word.chars().filter(|&s| {
+            let point = MAP[&s];
+            point.1 >= 3
+        });
 
-        let mut state = State::new();
+        let left = left.collect::<Vec<char>>();
+        let right = right.collect::<Vec<char>>();
 
-        for c in word.chars() {
-            dist += calc_distance(&c, &mut state)
-        }
-
-        dist
+        distance_over(left.into_iter()) + distance_over(right.into_iter())
     }
 }
 

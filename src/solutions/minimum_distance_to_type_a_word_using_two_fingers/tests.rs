@@ -27,3 +27,10 @@ fn example4() {
     let output = 7;
     assert_eq!(output, Solution::minimum_distance(input));
 }
+
+#[test]
+fn example5() {
+    let input = "JDX".to_owned();
+    let output = 1;
+    assert_eq!(output, Solution::minimum_distance(input));
+}
