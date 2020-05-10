@@ -43,22 +43,32 @@ fn distance_over<'a>(iter: impl Iterator<Item = char>) -> i32 {
     dist
 }
 
+fn shuffle(word: String) -> Vec<(String, String)> {
+    let left = word.chars().filter(|&s| {
+        let point = MAP[&s];
+        point.1 <= 2
+    });
+    let right = word.chars().filter(|&s| {
+        let point = MAP[&s];
+        point.1 >= 3
+    });
+
+    let left = left.collect::<String>();
+    let right = right.collect::<String>();
+
+    vec![(left, right)]
+}
+
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        let left = word.chars().filter(|&s| {
-            let point = MAP[&s];
-            point.1 <= 2
-        });
-        let right = word.chars().filter(|&s| {
-            let point = MAP[&s];
-            point.1 >= 3
-        });
+        let mut dist: Vec<i32> = Vec::new();
 
-        let left = left.collect::<Vec<char>>();
-        let right = right.collect::<Vec<char>>();
+        for (left, right) in shuffle(word) {
+            dist.push(distance_over(left.chars()) + distance_over(right.chars()));
+        }
 
-        distance_over(left.into_iter()) + distance_over(right.into_iter())
+        dist.into_iter().min().unwrap()
     }
 }
 
