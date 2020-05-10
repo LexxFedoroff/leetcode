@@ -44,19 +44,34 @@ fn distance_over<'a>(iter: impl Iterator<Item = char>) -> i32 {
 }
 
 fn shuffle(word: String) -> Vec<(String, String)> {
-    let left = word.chars().filter(|&s| {
-        let point = MAP[&s];
-        point.1 <= 2
-    });
-    let right = word.chars().filter(|&s| {
-        let point = MAP[&s];
-        point.1 >= 3
-    });
+    shuffle_rec(&word)
+}
 
-    let left = left.collect::<String>();
-    let right = right.collect::<String>();
+fn cc(ch: char, str: &str) -> String {
+    let mut s = String::from(str);
+    s.insert(0, ch);
+    s
+}
 
-    vec![(left, right)]
+fn shuffle_rec(tail: &str) -> Vec<(String, String)> {
+    if tail.len() == 0 {
+        return vec![(String::default(), String::default())];
+    }
+
+    let ch = tail.chars().nth(0).unwrap();
+
+    let vec = shuffle_rec(&tail[1..]);
+
+    let mut res = Vec::new();
+
+    for tuple in vec.iter() {
+        let (left, right) = tuple;
+
+        res.push((cc(ch, left), right.clone()));
+        res.push((left.clone(), cc(ch, right)));
+    }
+
+    res
 }
 
 impl Solution {
