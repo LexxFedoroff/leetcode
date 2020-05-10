@@ -47,21 +47,29 @@ fn calc_distance(ch: &char, state: &mut State) -> i32 {
     let ld = if let Some(ref point) = state.left_finger {
         distance(&ch, point)
     } else {
-        0
+        if ch.1 <= 2 {
+            0
+        } else {
+            i32::MAX
+        }
     };
 
     let rd = if let Some(ref point) = state.right_finger {
         distance(&ch, point)
     } else {
-        0
+        if ch.1 >= 3 {
+            0
+        } else {
+            i32::MAX
+        }
     };
 
     if ld <= rd {
         state.left_finger = Some(ch);
-        return ld;
+        ld
     } else {
         state.right_finger = Some(ch);
-        return rd;
+        rd
     }
 }
 
