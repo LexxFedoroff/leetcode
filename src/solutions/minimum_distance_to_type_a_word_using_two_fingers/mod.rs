@@ -12,28 +12,71 @@ lazy_static! {
             &['Y', 'Z'],
         ]
     };
-    static ref MAP: HashMap<&'static char, (usize, usize)> = {
+    static ref MAP: HashMap<&'static char, (i32, i32)> = {
         let mut map = HashMap::new();
         for (x, line) in KEYBOARD.iter().enumerate() {
             for (y, c) in line.iter().enumerate() {
-                map.insert(c, (x, y));
+                map.insert(c, (x as i32, y as i32));
             }
         }
         map
     };
 }
 
-fn distance(c1: &char, c2: &char) -> i32 {
-    let c1 = MAP[c1];
-    let c2 = MAP[c2];
-
+fn distance(c1: &(i32, i32), c2: &(i32, i32)) -> i32 {
     (c1.0 as i32 - c2.0 as i32).abs() + (c1.1 as i32 - c2.1 as i32).abs()
+}
+
+struct State {
+    left_finger: Option<(i32, i32)>,
+    right_finger: Option<(i32, i32)>,
+}
+
+impl State {
+    fn new() -> State {
+        State {
+            left_finger: None,
+            right_finger: None,
+        }
+    }
+}
+
+fn calc_distance(ch: &char, state: &mut State) -> i32 {
+    let ch = MAP[ch];
+
+    let ld = if let Some(ref point) = state.left_finger {
+        distance(&ch, point)
+    } else {
+        0
+    };
+
+    let rd = if let Some(ref point) = state.right_finger {
+        distance(&ch, point)
+    } else {
+        0
+    };
+
+    if ld <= rd {
+        state.left_finger = Some(ch);
+        return ld;
+    } else {
+        state.right_finger = Some(ch);
+        return rd;
+    }
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        1
+        let mut dist = 0;
+
+        let mut state = State::new();
+
+        for c in word.chars() {
+            dist += calc_distance(&c, &mut state)
+        }
+
+        dist
     }
 }
 
