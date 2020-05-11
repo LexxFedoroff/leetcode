@@ -34,3 +34,17 @@ fn example5() {
     let output = 1;
     assert_eq!(output, Solution::minimum_distance(input));
 }
+
+#[test]
+fn example7() {
+    let input = "CAUSX".to_owned();
+    let output = 8;
+    assert_eq!(output, Solution::minimum_distance(input));
+}
+
+// #[test]
+fn example6() {
+    let input = "OPVUWZLCKTDPSUKGHAXIDWHLZFKNBDZEWHBSURTVCADUGTSDMCLDBTAGFWDPGXZBVARNTDICHCUJLNFBQOBTDWMGILXPSFWVGYBZVFFKQIDTOVFAPVNSQJULMVIERWAOXCKXBRI".to_owned();
+    let output = 1;
+    assert_eq!(output, Solution::minimum_distance(input));
+}

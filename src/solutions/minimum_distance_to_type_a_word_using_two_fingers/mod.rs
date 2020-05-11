@@ -27,63 +27,68 @@ fn distance(c1: &(i32, i32), c2: &(i32, i32)) -> i32 {
     (c1.0 as i32 - c2.0 as i32).abs() + (c1.1 as i32 - c2.1 as i32).abs()
 }
 
-fn distance_over<'a>(iter: impl Iterator<Item = char>) -> i32 {
-    let mut dist = 0;
-    let mut prev: Option<char> = None;
-    for curr in iter {
-        prev = match prev {
-            None => Some(curr),
-            Some(prev) => {
-                dist += distance(&MAP[&prev], &MAP[&curr]);
-                Some(curr)
-            }
+struct State {
+    left_finger: Option<(i32, i32)>,
+    right_finger: Option<(i32, i32)>,
+    distance: i32,
+}
+
+impl State {
+    fn new() -> State {
+        State {
+            left_finger: None,
+            right_finger: None,
+            distance: 0,
         }
     }
 
-    dist
+    fn move_left(&self, point: &(i32, i32)) -> State {
+        let dist = match self.left_finger {
+            Some(p) => distance(&p, point),
+            None => 0,
+        };
+        State {
+            left_finger: Some(*point),
+            right_finger: self.right_finger,
+            distance: self.distance + dist,
+        }
+    }
+
+    fn move_right(&self, point: &(i32, i32)) -> State {
+        let dist = match self.right_finger {
+            Some(p) => distance(&p, point),
+            None => 0,
+        };
+        State {
+            left_finger: self.left_finger,
+            right_finger: Some(*point),
+            distance: self.distance + dist,
+        }
+    }
 }
 
-fn shuffle(word: String) -> Vec<(String, String)> {
-    shuffle_rec(&word)
-}
-
-fn cc(ch: char, str: &str) -> String {
-    let mut s = String::from(str);
-    s.insert(0, ch);
-    s
-}
-
-fn shuffle_rec(tail: &str) -> Vec<(String, String)> {
+fn calc_rec(tail: &str, state: State) -> State {
     if tail.len() == 0 {
-        return vec![(String::default(), String::default())];
+        return state;
     }
 
-    let ch = tail.chars().nth(0).unwrap();
+    let head = tail.chars().nth(0).unwrap();
 
-    let vec = shuffle_rec(&tail[1..]);
+    let left_state = calc_rec(&tail[1..], state.move_left(&MAP[&head]));
+    let right_state = calc_rec(&tail[1..], state.move_right(&MAP[&head]));
 
-    let mut res = Vec::new();
-
-    for tuple in vec.iter() {
-        let (left, right) = tuple;
-
-        res.push((cc(ch, left), right.clone()));
-        res.push((left.clone(), cc(ch, right)));
+    if left_state.distance < right_state.distance {
+        left_state
+    } else {
+        right_state
     }
-
-    res
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        let mut dist: Vec<i32> = Vec::new();
-
-        for (left, right) in shuffle(word) {
-            dist.push(distance_over(left.chars()) + distance_over(right.chars()));
-        }
-
-        dist.into_iter().min().unwrap()
+        let state = calc_rec(&word, State::new());
+        state.distance
     }
 }
 
