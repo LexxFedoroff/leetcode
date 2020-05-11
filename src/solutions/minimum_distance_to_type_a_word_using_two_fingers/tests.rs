@@ -43,8 +43,22 @@ fn example7() {
 }
 
 #[test]
+fn example8() {
+    let input = "QIBZR".to_owned();
+    let output = 7;
+    assert_eq!(output, Solution::minimum_distance(input));
+}
+
+#[test]
 fn example6() {
     let input = "OPVUWZLCKTDPSUKGHAXIDWHLZFKNBDZEWHBSURTVCADUGTSDMCLDBTAGFWDPGXZBVARNTDICHCUJLNFBQOBTDWMGILXPSFWVGYBZVFFKQIDTOVFAPVNSQJULMVIERWAOXCKXBRI".to_owned();
-    let output = 309;
+    let output = 295;
+    assert_eq!(output, Solution::minimum_distance(input));
+}
+
+#[test]
+fn example9() {
+    let input = "KQHHYFJLNVBETAMCWCENJRNXESNJULCHOULUQBMNANXKOGLJPCFZDIDRTWEZWOMFYNNFHOKQELOUUCPYGJAWOTOAGJDYUJRTENWYPCVPYHRYMIUADIVBAIMQSWMODXIL".to_owned();
+    let output = 264;
     assert_eq!(output, Solution::minimum_distance(input));
 }
