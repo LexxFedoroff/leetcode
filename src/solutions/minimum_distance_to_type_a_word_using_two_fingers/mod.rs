@@ -74,14 +74,18 @@ fn calc_rec(tail: &str, state: State) -> State {
 
     let head = tail.chars().nth(0).unwrap();
 
-    let left_state = calc_rec(&tail[1..], state.move_left(&MAP[&head]));
-    let right_state = calc_rec(&tail[1..], state.move_right(&MAP[&head]));
+    let deep = std::cmp::min(3, tail.len());
 
-    if left_state.distance < right_state.distance {
-        left_state
+    let left_state = calc_rec(&tail[1..deep], state.move_left(&MAP[&head]));
+    let right_state = calc_rec(&tail[1..deep], state.move_right(&MAP[&head]));
+
+    let state = if left_state.distance < right_state.distance {
+        state.move_left(&MAP[&head])
     } else {
-        right_state
-    }
+        state.move_right(&MAP[&head])
+    };
+
+    calc_rec(&tail[1..], state)
 }
 
 impl Solution {

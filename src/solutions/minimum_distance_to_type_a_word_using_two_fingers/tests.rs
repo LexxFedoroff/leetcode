@@ -42,9 +42,9 @@ fn example7() {
     assert_eq!(output, Solution::minimum_distance(input));
 }
 
-// #[test]
+#[test]
 fn example6() {
     let input = "OPVUWZLCKTDPSUKGHAXIDWHLZFKNBDZEWHBSURTVCADUGTSDMCLDBTAGFWDPGXZBVARNTDICHCUJLNFBQOBTDWMGILXPSFWVGYBZVFFKQIDTOVFAPVNSQJULMVIERWAOXCKXBRI".to_owned();
-    let output = 1;
+    let output = 309;
     assert_eq!(output, Solution::minimum_distance(input));
 }
