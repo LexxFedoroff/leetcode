@@ -27,33 +27,35 @@ fn distance(c1: &(i32, i32), c2: &(i32, i32)) -> i32 {
     (c1.0 as i32 - c2.0 as i32).abs() + (c1.1 as i32 - c2.1 as i32).abs()
 }
 
-fn calc_rec(left: Option<char>, right: Option<char>, tail: &str) -> i32 {
-    if tail.len() == 0 {
+fn calc_rec(left: Option<usize>, right: Option<usize>, head: usize, word: &str) -> i32 {
+    if head == word.len() {
         return 0;
     }
 
-    let head = tail.chars().next().unwrap();
+    let head_char = word.chars().nth(head).unwrap();
+    let left_char = left.and_then(|l| word.chars().nth(l));
+    let right_char = right.and_then(|l| word.chars().nth(l));
 
-    let min_tail = std::cmp::min(
-        calc_rec(Some(head), right, &tail[1..])
-            + match left {
-                Some(c) => distance(&MAP[&c], &MAP[&head]),
+    let min = std::cmp::min(
+        calc_rec(Some(head), right, head + 1, word)
+            + match left_char {
+                Some(c) => distance(&MAP[&c], &MAP[&head_char]),
                 None => 0,
             },
-        calc_rec(left, Some(head), &tail[1..])
-            + match right {
-                Some(c) => distance(&MAP[&c], &MAP[&head]),
+        calc_rec(left, Some(head), head + 1, word)
+            + match right_char {
+                Some(c) => distance(&MAP[&c], &MAP[&head_char]),
                 None => 0,
             },
     );
 
-    min_tail
+    min
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        calc_rec(None, None, &word)
+        calc_rec(None, None, 0, &word)
     }
 }
 
