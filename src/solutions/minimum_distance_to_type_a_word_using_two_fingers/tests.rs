@@ -50,6 +50,13 @@ fn example8() {
 }
 
 #[test]
+fn example10() {
+    let input = "QIBZR".to_owned();
+    let output = 6;
+    assert_eq!(output, Solution::minimum_distance(input));
+}
+
+// #[test]
 fn example6() {
     let input = "OPVUWZLCKTDPSUKGHAXIDWHLZFKNBDZEWHBSURTVCADUGTSDMCLDBTAGFWDPGXZBVARNTDICHCUJLNFBQOBTDWMGILXPSFWVGYBZVFFKQIDTOVFAPVNSQJULMVIERWAOXCKXBRI".to_owned();
     let output = 295;
