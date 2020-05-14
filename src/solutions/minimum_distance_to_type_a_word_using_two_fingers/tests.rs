@@ -56,14 +56,14 @@ fn example10() {
     assert_eq!(output, Solution::minimum_distance(input));
 }
 
-// #[test]
+#[test]
 fn example6() {
     let input = "OPVUWZLCKTDPSUKGHAXIDWHLZFKNBDZEWHBSURTVCADUGTSDMCLDBTAGFWDPGXZBVARNTDICHCUJLNFBQOBTDWMGILXPSFWVGYBZVFFKQIDTOVFAPVNSQJULMVIERWAOXCKXBRI".to_owned();
     let output = 295;
     assert_eq!(output, Solution::minimum_distance(input));
 }
 
-// #[test]
+#[test]
 fn example9() {
     let input = "KQHHYFJLNVBETAMCWCENJRNXESNJULCHOULUQBMNANXKOGLJPCFZDIDRTWEZWOMFYNNFHOKQELOUUCPYGJAWOTOAGJDYUJRTENWYPCVPYHRYMIUADIVBAIMQSWMODXIL".to_owned();
     let output = 264;

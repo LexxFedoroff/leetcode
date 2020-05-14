@@ -27,9 +27,19 @@ fn distance(c1: &(i32, i32), c2: &(i32, i32)) -> i32 {
     (c1.0 as i32 - c2.0 as i32).abs() + (c1.1 as i32 - c2.1 as i32).abs()
 }
 
-fn calc_rec(left: Option<usize>, right: Option<usize>, head: usize, word: &str) -> i32 {
+fn calc_rec(
+    left: Option<usize>,
+    right: Option<usize>,
+    head: usize,
+    word: &str,
+    memo: &mut HashMap<(Option<usize>, Option<usize>, usize), i32>,
+) -> i32 {
     if head == word.len() {
         return 0;
+    }
+
+    if let Some(min) = memo.get(&(left, right, head)) {
+        return *min;
     }
 
     let head_char = word.chars().nth(head).unwrap();
@@ -37,17 +47,19 @@ fn calc_rec(left: Option<usize>, right: Option<usize>, head: usize, word: &str) 
     let right_char = right.and_then(|l| word.chars().nth(l));
 
     let min = std::cmp::min(
-        calc_rec(Some(head), right, head + 1, word)
+        calc_rec(Some(head), right, head + 1, word, memo)
             + match left_char {
                 Some(c) => distance(&MAP[&c], &MAP[&head_char]),
                 None => 0,
             },
-        calc_rec(left, Some(head), head + 1, word)
+        calc_rec(left, Some(head), head + 1, word, memo)
             + match right_char {
                 Some(c) => distance(&MAP[&c], &MAP[&head_char]),
                 None => 0,
             },
     );
+
+    memo.entry((left, right, head)).or_insert(min);
 
     min
 }
@@ -55,7 +67,7 @@ fn calc_rec(left: Option<usize>, right: Option<usize>, head: usize, word: &str) 
 impl Solution {
     #[allow(dead_code)]
     pub fn minimum_distance(word: String) -> i32 {
-        calc_rec(None, None, 0, &word)
+        calc_rec(None, None, 0, &word, &mut HashMap::new())
     }
 }
 
