@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::split_array_largest_sum::tests::example1"
+                "solutions::split_array_largest_sum::tests::example2"
             ]
         }
     ]

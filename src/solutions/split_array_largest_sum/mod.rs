@@ -17,7 +17,7 @@ impl Solution {
 
         let mut min = None;
 
-        for i in 1..to as usize {
+        for i in 1..to + 1 as usize {
             let sum1 = tail[0..i].iter().sum();
             let sum2 = Self::split_rec(&tail[i..n], m - 1);
             let max_sum = std::cmp::max(sum1, sum2);
