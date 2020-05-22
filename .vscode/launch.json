@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::minimum_distance_to_type_a_word_using_two_fingers::tests::example7"
+                "solutions::split_array_largest_sum::tests::example1"
             ]
         }
     ]
