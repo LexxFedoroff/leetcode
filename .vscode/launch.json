@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::two_sum::tests::example1"
+                "solutions::two_sum::tests::example2"
             ]
         }
     ]

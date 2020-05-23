@@ -13,7 +13,9 @@ impl Solution {
         for (idx, num) in nums.iter().enumerate() {
             let rest = target - num;
             if let Some(idx2) = nums_map.get(&rest) {
-                return vec![idx as i32, *idx2 as i32];
+                if idx != *idx2 {
+                    return vec![idx as i32, *idx2 as i32];
+                }
             }
         }
 
