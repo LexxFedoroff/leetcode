@@ -24,3 +24,8 @@ fn example4() {
 fn example5() {
     assert_eq!(0, Solution::reverse(1534236469));
 }
+
+#[test]
+fn example6() {
+    assert_eq!(0, Solution::reverse(-2147483648));
+}
