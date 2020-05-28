@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::palindrome_number::tests::example3"
+                "solutions::roman_to_integer::tests::example7"
             ]
         }
     ]
