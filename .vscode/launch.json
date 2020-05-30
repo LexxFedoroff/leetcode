@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::roman_to_integer::tests::example7"
+                "solutions::median_of_two_sorted_arrays::tests::example1"
             ]
         }
     ]
