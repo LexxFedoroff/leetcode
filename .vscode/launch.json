@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::median_of_two_sorted_arrays::tests::example1"
+                "solutions::add_two_numbers::tests::example3"
             ]
         }
     ]

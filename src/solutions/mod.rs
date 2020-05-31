@@ -1,3 +1,4 @@
+mod add_two_numbers;
 mod concatenated_words;
 mod degree_of_an_array;
 mod median_of_two_sorted_arrays;
