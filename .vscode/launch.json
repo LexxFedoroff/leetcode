@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::add_two_numbers::tests::example3"
+                "solutions::longest_substring_without_repeating_characters::tests::example2"
             ]
         }
     ]
