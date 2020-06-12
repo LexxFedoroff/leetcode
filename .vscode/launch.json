@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::longest_substring_without_repeating_characters::tests::example2"
+                "solutions::longest_palindromic_substring::tests::example5"
             ]
         }
     ]
