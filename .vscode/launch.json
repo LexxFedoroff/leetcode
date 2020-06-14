@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::longest_palindromic_substring::tests::example5"
+                "solutions::longest_palindromic_substring::tests::example2"
             ]
         }
     ]

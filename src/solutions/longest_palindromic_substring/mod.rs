@@ -1,31 +1,59 @@
 // https://leetcode.com/problems/longest-palindromic-substring/
 use crate::Solution;
 
-fn is_polidrom(substr: &Vec<char>) -> bool {
-    let n = substr.len();
-    for i in 0..(n / 2) {
-        if substr[i] != substr[n - i - 1] {
-            return false;
+fn get_palindrome_odd(s: &Vec<char>, idx: usize) -> &[char] {
+    let mut i = 1;
+    loop {
+        let left = idx.checked_sub(i).and_then(|t| s.get(t));
+        let right = s.get(idx + i);
+        match (left, right) {
+            (Some(l), Some(r)) if l == r => {
+                i += 1;
+                continue;
+            }
+            _ => {
+                let f = idx - (i - 1);
+                let t = idx + (i - 1) + 1;
+                return &s[f..t];
+            }
         }
     }
+}
 
-    return true;
+fn get_palindrome_even(s: &Vec<char>, idx: usize) -> &[char] {
+    let mut i = 0;
+    loop {
+        let left = idx.checked_sub(i).and_then(|t| s.get(t));
+        let right = s.get(idx + i + 1);
+        match (left, right) {
+            (Some(l), Some(r)) if l == r => {
+                i += 1;
+                continue;
+            }
+            _ => {
+                let f = (idx + 1).checked_sub(i).unwrap_or(0);
+                let t = idx + i + 1;
+                return &s[f..t];
+            }
+        }
+    }
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn longest_palindrome(s: String) -> String {
-        let n = s.len();
+        let svec: Vec<char> = s.chars().collect();
 
-        for x in (0..n + 1).rev() {
-            for i in 0..(n - x + 1) {
-                if is_polidrom(&s[i..i + x].chars().collect()) {
-                    return s[i..i + x].to_owned();
-                }
-            }
+        let mut max: &[char] = Default::default();
+
+        for (idx, _) in svec.iter().enumerate() {
+            let curr = get_palindrome_odd(&svec, idx);
+            max = if max.len() >= curr.len() { max } else { curr };
+            let curr = get_palindrome_even(&svec, idx);
+            max = if max.len() >= curr.len() { max } else { curr };
         }
 
-        return String::default();
+        return max.iter().collect();
     }
 }
 
