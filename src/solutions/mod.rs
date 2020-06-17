@@ -12,5 +12,6 @@ mod reverse_integer;
 mod roman_to_integer;
 mod split_array_largest_sum;
 mod two_sum;
+mod valid_parentheses;
 mod verify_preorder_serialization_of_a_binary_tree;
 mod word_pattern;
