@@ -5,6 +5,7 @@ mod longest_common_prefix;
 mod longest_palindromic_substring;
 mod longest_substring_without_repeating_characters;
 mod median_of_two_sorted_arrays;
+mod merge_two_sorted_lists;
 mod minimum_distance_to_type_a_word_using_two_fingers;
 mod palindrome_number;
 mod piece;
