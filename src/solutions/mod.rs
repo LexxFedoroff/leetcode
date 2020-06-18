@@ -8,7 +8,7 @@ mod median_of_two_sorted_arrays;
 mod merge_two_sorted_lists;
 mod minimum_distance_to_type_a_word_using_two_fingers;
 mod palindrome_number;
-mod piece;
+mod remove_duplicates_from_sorted_array;
 mod reverse_integer;
 mod roman_to_integer;
 mod split_array_largest_sum;
