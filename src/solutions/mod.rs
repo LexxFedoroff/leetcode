@@ -16,3 +16,4 @@ mod two_sum;
 mod valid_parentheses;
 mod verify_preorder_serialization_of_a_binary_tree;
 mod word_pattern;
+mod zigzag_conversion;
