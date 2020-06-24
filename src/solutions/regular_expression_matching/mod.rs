@@ -1,65 +1,69 @@
 // https://leetcode.com/problems/regular-expression-matching/
 use crate::Solution;
+use std::collections::HashMap;
 
-fn split_pattern(p: &str) -> Vec<String> {
-    let mut res: Vec<String> = Vec::new();
+type MemoKey = (String, String);
 
-    for x in p.chars() {
-        if x == '*' {
-            if let Some(l) = res.last_mut() {
-                l.push(x);
-            } else {
-                panic!();
+fn is_match_aster(s: &str, p: &str, memo: &mut HashMap<MemoKey, bool>) -> bool {
+    let mut s = s;
+    let p_ch = p.chars().nth(0);
+
+    if s.is_empty() {
+        return is_match_rec(&s, &p[2..], memo);
+    }
+
+    loop {
+        let ch = s.chars().nth(0);
+
+        if ch == p_ch || p_ch == Some('.') {
+            let is_match = is_match_rec(&s, &p[2..], memo);
+            if is_match {
+                return true;
             }
         } else {
-            res.push(x.to_string());
+            return is_match_rec(&s, &p[2..], memo);
         }
+
+        if s.is_empty() {
+            break;
+        }
+        s = &s[1..];
     }
 
-    return res;
+    return false;
 }
 
-fn is_match_char(ch: Option<char>, pch: Option<char>) -> bool {
-    if pch == Some('.') && ch != None {
-        return true;
+fn is_match_rec(s: &str, p: &str, memo: &mut HashMap<MemoKey, bool>) -> bool {
+    if let Some(is_match) = memo.get(&(s.to_owned(), p.to_owned())) {
+        return *is_match;
     }
 
-    return ch == pch;
-}
+    let ch = s.chars().nth(0);
+    let p_ch = p.chars().nth(0);
+    let pn_ch = p.chars().nth(1);
 
-fn try_match(s: &str, p: &str) -> Option<String> {
-    match p.len() {
-        1 => {
-            return if is_match_char(s.chars().nth(0), p.chars().nth(0)) {
-                Some(s[1..].to_owned())
+    let is_match = match (ch, p_ch, pn_ch) {
+        (None, None, _) => true,
+        (_, _, Some('*')) => is_match_aster(&s, &p, memo),
+        (Some(ch), Some(p_ch), _) => {
+            if p_ch == '.' || p_ch == ch {
+                is_match_rec(&s[1..], &p[1..], memo)
             } else {
-                None
+                false
             }
         }
-        2 => {
-            let ch = p.chars().nth(0);
-            let mut s = s;
-            while is_match_char(s.chars().nth(0), ch) {
-                s = &s[1..];
-            }
-            return Some(s.to_owned());
-        }
-        _ => panic!(),
-    }
+        _ => false,
+    };
+
+    memo.entry((s.to_owned(), p.to_owned())).or_insert(is_match);
+
+    return is_match;
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn is_match(s: String, p: String) -> bool {
-        let mut ms = s;
-        for pp in split_pattern(&p).iter() {
-            match try_match(&ms, pp) {
-                Some(ss) => ms = ss,
-                None => return false,
-            }
-        }
-
-        return ms.is_empty();
+        return is_match_rec(&s, &p, &mut HashMap::new());
     }
 }
 

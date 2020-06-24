@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::regular_expression_matching::tests::example7"
+                "solutions::regular_expression_matching::tests::example2"
             ]
         }
     ]

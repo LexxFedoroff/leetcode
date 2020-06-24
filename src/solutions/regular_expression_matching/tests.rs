@@ -6,6 +6,11 @@ fn example1() {
 }
 
 #[test]
+fn example11() {
+    assert_eq!(true, Solution::is_match("a".to_owned(), "a*a".to_owned()));
+}
+
+#[test]
 fn example2() {
     assert_eq!(true, Solution::is_match("aa".to_owned(), "a*".to_owned()));
 }
@@ -42,4 +47,22 @@ fn example6() {
 #[test]
 fn example7() {
     assert_eq!(true, Solution::is_match("aaa".to_owned(), "a*a".to_owned()));
+}
+
+#[test]
+fn example8() {
+    assert_eq!(false, Solution::is_match("ab".to_owned(), ".*c".to_owned()));
+}
+
+#[test]
+fn example9() {
+    assert_eq!(true, Solution::is_match("a".to_owned(), "ab*".to_owned()));
+}
+
+#[test]
+fn example10() {
+    assert_eq!(
+        true,
+        Solution::is_match("bbbba".to_owned(), ".*a*a".to_owned())
+    );
 }
