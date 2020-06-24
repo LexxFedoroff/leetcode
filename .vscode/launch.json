@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::zigzag_conversion::tests::example1"
+                "solutions::regular_expression_matching::tests::example7"
             ]
         }
     ]
