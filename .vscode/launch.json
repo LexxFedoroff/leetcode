@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::regular_expression_matching::tests::example2"
+                "solutions::string_to_integer_atoi::tests::example3"
             ]
         }
     ]

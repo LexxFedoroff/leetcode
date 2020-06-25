@@ -13,6 +13,7 @@ mod remove_duplicates_from_sorted_array;
 mod reverse_integer;
 mod roman_to_integer;
 mod split_array_largest_sum;
+mod string_to_integer_atoi;
 mod two_sum;
 mod valid_parentheses;
 mod verify_preorder_serialization_of_a_binary_tree;
