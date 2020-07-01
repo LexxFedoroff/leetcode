@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::string_to_integer_atoi::tests::example3"
+                "solutions::remove_element::tests::example1"
             ]
         }
     ]
