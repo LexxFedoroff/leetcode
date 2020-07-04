@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::remove_element::tests::example1"
+                "merge_k_sorted_lists"
             ]
         }
     ]
