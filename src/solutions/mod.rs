@@ -2,6 +2,7 @@ mod add_two_numbers;
 mod concatenated_words;
 mod container_with_most_water;
 mod degree_of_an_array;
+mod integer_to_roman;
 mod longest_common_prefix;
 mod longest_palindromic_substring;
 mod longest_substring_without_repeating_characters;
