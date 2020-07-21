@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::integer_to_roman::tests::example1"
+                "solutions::implement_strstr::tests::example1"
             ]
         }
     ]
