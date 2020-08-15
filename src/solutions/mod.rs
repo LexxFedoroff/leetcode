@@ -16,6 +16,7 @@ mod regular_expression_matching;
 mod remove_duplicates_from_sorted_array;
 mod remove_element;
 mod reverse_integer;
+mod reverse_nodes_in_k_group;
 mod roman_to_integer;
 mod split_array_largest_sum;
 mod string_to_integer_atoi;

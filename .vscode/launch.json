@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::implement_strstr::tests::example1"
+                "solutions::reverse_nodes_in_k_group::tests::example1"
             ]
         }
     ]
