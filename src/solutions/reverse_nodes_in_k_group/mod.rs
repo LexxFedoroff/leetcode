@@ -43,28 +43,32 @@ fn attach(head: Link, tail: Link) -> Link {
 
 impl List {
     fn reverse_k_group(&mut self, k: i32) {
+        let mut head = self.head.take();
+        // let mut cursor = &mut head;
         let mut prev = None;
-        let mut curr = self.head.take();
+        // let mut last = &mut cursor;
 
         let mut i = 0;
 
-        let next = loop {
-            if i >= k {
-                break curr;
-            }
+        while let Some(mut cur_node) = head {
+            // if i >= k {
+            //     last.as_mut().unwrap().next = Some(cur_node);
+            //     break;
+            // }
 
-            if let Some(mut curr_inner) = curr {
-                let next = curr_inner.next;
-                curr_inner.next = prev;
-                prev = Some(curr_inner);
-                curr = next;
-                i += 1;
-            } else {
-                break None;
-            }
-        };
+            let next = cur_node.next.take();
+            cur_node.next = prev;
+            prev = Some(cur_node);
+            head = next;
+            i += 1;
+        }
 
-        self.head = attach(prev, next);
+        // let mut head = self.head.take();
+        // let mut next = head.as_mut().unwrap().next.take();
+        // head.as_mut().unwrap().next = next.as_mut().unwrap().next.take();
+        // next.as_mut().unwrap().next = head;
+
+        self.head = prev;
     }
 
     fn reverse(&mut self, k: i32) {
