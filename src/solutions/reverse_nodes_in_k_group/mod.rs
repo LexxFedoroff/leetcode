@@ -4,90 +4,44 @@ mod list;
 use crate::Solution;
 use list::ListNode;
 
-type Link = Option<Box<ListNode>>;
+fn reverse_rec(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
+    let mut first = head;
+    let mut cursor = &mut first;
 
-struct List {
-    head: Link,
-}
-
-fn attach(head: Link, tail: Link) -> Link {
-    if tail == None {
-        return head;
-    }
-
-    if head == None {
-        return tail;
-    }
-
-    let mut copy = None;
-
-    {
-        let mut copy_ref = &mut copy;
-        let mut cur = &head;
-        while let Some(inner) = cur {
-            *copy_ref = Some(Box::new(ListNode::new(inner.val)));
-            copy_ref = &mut copy_ref.as_mut().unwrap().next;
-            cur = &inner.next;
-        }
-
-        let mut cur = &tail;
-        while let Some(inner) = cur {
-            *copy_ref = Some(Box::new(ListNode::new(inner.val)));
-            copy_ref = &mut copy_ref.as_mut().unwrap().next;
-            cur = &inner.next;
+    for _ in 0..k {
+        match cursor {
+            None => return first,
+            Some(cur_node) => {
+                cursor = &mut cur_node.next;
+            }
         }
     }
 
-    return copy;
-}
+    let mut tail = reverse_rec(cursor.take(), k);
+    let mut prev_ref = &mut tail;
 
-impl List {
-    fn reverse_k_group(&mut self, k: i32) {
-        let mut head = self.head.take();
-        // let mut cursor = &mut head;
-        let mut prev = None;
-        // let mut last = &mut cursor;
+    let mut prev;
 
-        let mut i = 0;
-
-        while let Some(mut cur_node) = head {
-            // if i >= k {
-            //     last.as_mut().unwrap().next = Some(cur_node);
-            //     break;
-            // }
-
-            let next = cur_node.next.take();
-            cur_node.next = prev;
-            prev = Some(cur_node);
-            head = next;
-            i += 1;
+    for _ in 0..k {
+        match first {
+            None => unreachable!(),
+            Some(mut cur_node) => {
+                let next = cur_node.next;
+                cur_node.next = prev_ref.take();
+                first = next;
+                prev = Some(cur_node);
+                prev_ref = &mut prev;
+            }
         }
-
-        // let mut head = self.head.take();
-        // let mut next = head.as_mut().unwrap().next.take();
-        // head.as_mut().unwrap().next = next.as_mut().unwrap().next.take();
-        // next.as_mut().unwrap().next = head;
-
-        self.head = prev;
     }
 
-    fn reverse(&mut self, k: i32) {
-        self.reverse_k_group(k);
-    }
+    return prev_ref.take();
 }
 
 impl Solution {
     #[allow(dead_code)]
     pub fn reverse_k_group(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
-        if k == 1 {
-            return head;
-        }
-
-        let mut list = List { head: head };
-
-        list.reverse(k);
-
-        return list.head;
+        reverse_rec(head, k)
     }
 }
 
