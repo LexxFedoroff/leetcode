@@ -36,29 +36,20 @@ impl Result {
 impl Solution {
     #[allow(dead_code)]
     pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-        let mut cache: HashMap<i32, Vec<(usize, usize)>> = Default::default();
+        let mut cache: HashMap<i32, usize> = Default::default();
 
-        for i in 0..nums.len() {
-            let i_val = nums[i];
-            for j in i + 1..nums.len() {
-                let j_val = nums[j];
-                cache
-                    .entry(i_val + j_val)
-                    .and_modify(|v| {
-                        v.push((i, j));
-                    })
-                    .or_insert(vec![(i, j)]);
-            }
+        for (i, i_val) in nums.iter().enumerate() {
+            cache.entry(*i_val).or_insert(i);
         }
 
         let mut res = Result::new();
         for i in 0..nums.len() {
             let i_val = nums[i];
-            if let Some(ref idx_vec) = cache.get(&(0 - i_val)) {
-                for idx in idx_vec.iter() {
-                    if i != idx.0 && i != idx.1 {
-                        let j_val = nums[idx.0];
-                        let k_val = nums[idx.1];
+            for j in i + 1..nums.len() {
+                let j_val = nums[j];
+                let k_val = 0 - i_val - j_val;
+                if let Some(k) = cache.get(&k_val) {
+                    if i != *k && j != *k {
                         res.append(i_val, j_val, k_val);
                     }
                 }
