@@ -1,18 +1,15 @@
 // https://leetcode.com/problems/3sum/
 use crate::Solution;
 use std::collections::HashMap;
-use std::collections::HashSet;
 
 struct Result {
-    array: Vec<Vec<i32>>,
-    unique: HashSet<Vec<i32>>,
+    unique: HashMap<Vec<i32>, Vec<i32>>,
 }
 
 impl Result {
     fn new() -> Self {
         Result {
-            array: Vec::default(),
-            unique: HashSet::default(),
+            unique: Default::default(),
         }
     }
 
@@ -22,10 +19,7 @@ impl Result {
             return;
         }
         vec.sort();
-        if !self.unique.contains(&vec) {
-            self.unique.insert(vec.clone());
-            self.array.push(vec);
-        }
+        self.unique.entry(vec.clone()).or_insert(vec);
     }
 
     fn is_zero(vec: &Vec<i32>) -> bool {
@@ -55,7 +49,7 @@ impl Solution {
                 }
             }
         }
-        return res.array;
+        return res.unique.values().cloned().collect();
     }
 }
 
