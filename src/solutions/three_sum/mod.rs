@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/3sum/
 use crate::Solution;
+use std::collections::HashMap;
 use std::collections::HashSet;
 
 struct Result {
@@ -35,14 +36,31 @@ impl Result {
 impl Solution {
     #[allow(dead_code)]
     pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-        let mut res = Result::new();
+        let mut cache: HashMap<i32, Vec<(usize, usize)>> = Default::default();
+
         for i in 0..nums.len() {
             let i_val = nums[i];
             for j in i + 1..nums.len() {
                 let j_val = nums[j];
-                for k in j + 1..nums.len() {
-                    let k_val = nums[k];
-                    res.append(i_val, j_val, k_val);
+                cache
+                    .entry(i_val + j_val)
+                    .and_modify(|v| {
+                        v.push((i, j));
+                    })
+                    .or_insert(vec![(i, j)]);
+            }
+        }
+
+        let mut res = Result::new();
+        for i in 0..nums.len() {
+            let i_val = nums[i];
+            if let Some(ref idx_vec) = cache.get(&(0 - i_val)) {
+                for idx in idx_vec.iter() {
+                    if i != idx.0 && i != idx.1 {
+                        let j_val = nums[idx.0];
+                        let k_val = nums[idx.1];
+                        res.append(i_val, j_val, k_val);
+                    }
                 }
             }
         }
