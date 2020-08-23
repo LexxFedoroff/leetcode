@@ -2,7 +2,7 @@
 extern crate lazy_static;
 
 #[allow(dead_code)]
-struct Solution;
+pub struct Solution;
 
 mod solutions;
 mod tools;
