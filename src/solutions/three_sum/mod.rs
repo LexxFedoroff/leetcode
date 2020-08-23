@@ -7,9 +7,9 @@ struct Result {
 }
 
 impl Result {
-    fn new() -> Self {
+    fn new(capacity: usize) -> Self {
         Result {
-            unique: Default::default(),
+            unique: HashMap::with_capacity(capacity),
         }
     }
 
@@ -30,13 +30,13 @@ impl Result {
 impl Solution {
     #[allow(dead_code)]
     pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-        let mut cache: HashMap<i32, usize> = Default::default();
+        let mut cache: HashMap<i32, usize> = HashMap::with_capacity(nums.len());
 
         for (i, i_val) in nums.iter().enumerate() {
             cache.entry(*i_val).or_insert(i);
         }
 
-        let mut res = Result::new();
+        let mut res = Result::new(nums.len());
         for i in 0..nums.len() {
             let i_val = nums[i];
             for j in i + 1..nums.len() {
