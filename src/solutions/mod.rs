@@ -21,6 +21,7 @@ mod roman_to_integer;
 mod split_array_largest_sum;
 mod string_to_integer_atoi;
 mod three_sum;
+mod three_sum_closest;
 mod two_sum;
 mod valid_parentheses;
 mod verify_preorder_serialization_of_a_binary_tree;

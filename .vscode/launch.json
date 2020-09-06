@@ -17,7 +17,7 @@
             },
             "program": "${cargo:program}",
             "args": [
-                "solutions::three_sum::tests::example1"
+                "solutions::three_sum_closest::tests::example1"
             ]
         }
     ]
